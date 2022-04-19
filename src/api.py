@@ -3,6 +3,7 @@ App's entrypoint
 """
 from fastapi import FastAPI
 from src.schema.prediction import Prediction
+from src.model.model import predict
 
 # App object
 app = FastAPI(
@@ -19,4 +20,4 @@ async def index():
 
 @app.post("/")
 async def prediction(pred: Prediction):
-    return pred
+    return predict(pred.to_dataframe())

@@ -2,6 +2,7 @@
 Prediction endpoint schema
 """
 from pydantic import BaseModel, Field
+import pandas as pd
 
 
 class Prediction(BaseModel):
@@ -119,3 +120,6 @@ class Prediction(BaseModel):
     married: int = Field(title="Marriage status", ge=1, le=3)
     familysize: int = Field(title="Number of childs", ge=0)
 
+    # Create a DataFrame using the current value
+    def to_dataframe(self):
+        return pd.DataFrame(self.dict(), index=[0])

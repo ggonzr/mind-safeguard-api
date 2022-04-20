@@ -34,4 +34,10 @@ def predict(data: pd.DataFrame):
     # Load the classifier if it is needed
     load_classifier()
     result = clf.predict(data)
-    return {"level": int(result[0]), "meaning": CLASSES[result[0]]}
+    probabilities = [round(float(i), 3) for i in clf.predict_proba(data)[0]]
+    classes_names = CLASSES.values()
+    return {
+        "level": int(result[0]),
+        "meaning": CLASSES[result[0]],
+        "probabilities": dict(zip(classes_names, probabilities))
+    }
